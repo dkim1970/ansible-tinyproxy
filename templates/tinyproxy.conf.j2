@@ -250,7 +250,11 @@ Allow {{ item }}
 # BasicAuth: HTTP "Basic Authentication" for accessing the proxy.
 # If there are any entries specified, access is only granted for authenticated
 # users.
-#BasicAuth user password
+{% if tinyproxy_basicauth|length > 0 %}
+{% for item in tinyproxy_basicauth %}
+BasicAuth {{ item.username }} {{ item.password }}
+{% endfor %}
+{% endif %}
 
 #
 # AddHeader: Adds the specified headers to outgoing HTTP requests that
